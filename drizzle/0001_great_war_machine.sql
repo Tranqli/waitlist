@@ -1,0 +1,1 @@
+ALTER TABLE "waitlist_entries" ALTER COLUMN "source" SET DEFAULT 'tranqli-waitlist';
