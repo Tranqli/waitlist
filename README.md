@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# tranqli
 
-## Getting Started
+tranqli is a waitlist website for a calm workplace mental-health companion. The site collects emails, stores them in Neon Postgres, and presents a responsive light/dark landing experience.
 
-First, run the development server:
+## Stack
+
+- Next.js App Router
+- React 19
+- Tailwind CSS v4
+- Drizzle ORM
+- Neon Postgres
+- Xior for client HTTP requests
+- Phosphor Icons
+
+## Setup
+
+Install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create a local env file:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+cp .env.example .env
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Set the Neon connection string:
 
-## Learn More
+```env
+DATABASE_URL="your neon connection string"
+```
 
-To learn more about Next.js, take a look at the following resources:
+Apply database migrations:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+bun run db:migrate
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Start the app:
 
-## Deploy on Vercel
+```bash
+bun run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Open `http://localhost:3000`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Database
+
+Waitlist submissions are stored in the `waitlist_entries` table with:
+
+- `id`
+- `email`
+- `source`
+- `created_at`
+
+Generate a new migration after schema changes:
+
+```bash
+bun run db:generate
+```
+
+Inspect the database locally:
+
+```bash
+bun run db:studio
+```
+
+## Scripts
+
+```bash
+bun run dev        # start local dev server
+bun run build      # production build
+bun run start      # start production server
+bun run lint       # lint code
+bun run db:migrate # apply Drizzle migrations
+bun run db:studio  # open Drizzle Studio
+```
