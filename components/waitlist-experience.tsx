@@ -216,16 +216,16 @@ export function WaitlistExperience() {
 
 			<section className="mx-auto flex w-full max-w-7xl flex-col gap-7 px-5 pb-10 pt-6 sm:px-8 lg:hidden">
 				<div className="max-w-2xl">
-					<p className="mb-4 inline-flex items-center gap-2 rounded-full border border-(--line) bg-(--surface-soft) px-4 py-2 text-sm font-medium text-(--muted) shadow-[0_12px_30px_rgb(13_32_24_/_8%)]">
+					<p className="mb-4 inline-flex items-center gap-2 rounded-full border border-(--line) bg-(--surface-soft) px-4 py-2 text-sm font-medium text-(--muted) shadow-[0_12px_30px_rgb(13_32_24/8%)]">
 						<SparkleIcon size={16} weight="duotone" />
 						Workplace mental wellness, starting soon
 					</p>
 
-					<h1 className="max-w-[11ch] text-[clamp(2.9rem,13vw,4.55rem)] leading-[0.92] font-semibold tracking-[-0.05em] text-balance">
+					<h1 className="max-w-[11ch] text-[clamp(2.9rem,13vw,4.55rem)] leading-[0.92] font-semibold tracking-tighter text-balance">
 						A calmer way to support people at work.
 					</h1>
 
-					<p className="mt-5 max-w-[26rem] text-[1.05rem] leading-[1.72] text-(--muted)">
+					<p className="mt-5 max-w-104 text-[1.05rem] leading-[1.72] text-(--muted)">
 						tranqli is being built as a mobile companion for employees who
 						need practical support around work pressure, wellbeing, and the
 						right next step.
@@ -239,7 +239,7 @@ export function WaitlistExperience() {
 						onEmailChange={setEmail}
 						onSubmit={handleSubmit}
 						id="waitlist-mobile"
-						className="scroll-mt-28 rounded-[1.9rem] border border-(--line) bg-(--surface) p-2 shadow-[0_24px_80px_rgb(34_65_53_/_14%)]"
+						className="scroll-mt-28 rounded-[1.9rem] border border-(--line) bg-(--surface) p-2 shadow-[0_24px_80px_rgb(34_65_53/14%)]"
 						inputClassName="waitlist-field min-h-[3.4rem] w-full rounded-[1.2rem] border-0 bg-transparent px-4 text-[1.03rem] text-(--text) outline-none placeholder:text-(--muted) [-webkit-text-fill-color:var(--text)] [caret-color:var(--text)]"
 						buttonClassName="inline-flex min-h-[3.5rem] w-full items-center justify-center gap-2 rounded-[1.25rem] bg-(--brand) px-5 text-base font-bold text-(--brand-ink) shadow-[0_16px_36px_var(--brand-shadow)] transition duration-200 ease-out hover:-translate-y-px disabled:opacity-70"
 					/>
@@ -262,10 +262,10 @@ export function WaitlistExperience() {
 
 							return (
 								<article
-									className="flex items-start gap-4 rounded-[1.55rem] border border-(--line) bg-(--surface) px-4 py-4 shadow-[0_18px_54px_rgb(13_32_24_/_10%)]"
+									className="flex items-start gap-4 rounded-[1.55rem] border border-(--line) bg-(--surface) px-4 py-4 shadow-[0_18px_54px_rgb(13_32_24/10%)]"
 									key={point.label}
 								>
-									<div className="grid size-11 shrink-0 place-items-center rounded-[1rem] bg-[color-mix(in_srgb,var(--brand)_16%,transparent)] text-(--brand-strong)">
+									<div className="grid size-11 shrink-0 place-items-center rounded-2xl bg-[color-mix(in_srgb,var(--brand)_16%,transparent)] text-(--brand-strong)">
 										<Icon size={20} weight="duotone" />
 									</div>
 									<div className="min-w-0">
