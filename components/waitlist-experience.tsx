@@ -30,16 +30,92 @@ const supportPoints = [
 	{
 		icon: BrainIcon,
 		label: "Work-aware support",
+		detail: "Grounded in pressure, boundaries, and how work actually feels.",
 	},
 	{
 		icon: HeartIcon,
 		label: "Human, calm guidance",
+		detail: "Gentle next steps instead of generic wellness advice.",
 	},
 	{
 		icon: ShieldCheckIcon,
 		label: "Private by design",
+		detail: "Built for sensitive conversations and employee trust.",
 	},
 ];
+
+interface WaitlistJoinFormProps {
+	buttonClassName?: string;
+	className: string;
+	email: string;
+	id?: string;
+	inputClassName?: string;
+	isSubmitting: boolean;
+	onEmailChange: (nextEmail: string) => void;
+	onSubmit: (event: SubmitEvent<HTMLFormElement>) => void | Promise<void>;
+}
+
+function WaitlistJoinForm({
+	buttonClassName,
+	className,
+	email,
+	id = "waitlist",
+	inputClassName,
+	isSubmitting,
+	onEmailChange,
+	onSubmit,
+}: WaitlistJoinFormProps) {
+	return (
+		<form id={id} className={className} onSubmit={onSubmit}>
+			<label className="sr-only" htmlFor={`${id}-email`}>
+				Email address
+			</label>
+			<input
+				id={`${id}-email`}
+				name="email"
+				type="email"
+				value={email}
+				onChange={(event) => onEmailChange(event.target.value)}
+				placeholder="you@company.com"
+				autoComplete="email"
+				required
+				className={inputClassName}
+			/>
+			<button type="submit" disabled={isSubmitting} className={buttonClassName}>
+				<span>{isSubmitting ? "Joining" : "Join waitlist"}</span>
+				<ArrowRightIcon size={18} weight="bold" />
+			</button>
+		</form>
+	);
+}
+
+function WaitlistStatusMessage({
+	className,
+	message,
+	status,
+}: {
+	className: string;
+	message: string;
+	status: FormStatus;
+}) {
+	if (!message) {
+		return null;
+	}
+
+	return (
+		<p
+			className={`${className} flex items-center gap-2 text-sm font-medium ${
+				status === "success" ? "text-(--success)" : "text-(--error)"
+			}`}
+			role="status"
+		>
+			{status === "success" ? (
+				<CheckCircleIcon size={18} weight="fill" />
+			) : null}
+			{message}
+		</p>
+	);
+}
 
 function subscribeToSystemTheme(onStoreChange: () => void) {
 	const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -138,7 +214,76 @@ export function WaitlistExperience() {
 				onThemeToggle={toggleTheme}
 			/>
 
-			<section className="relative mx-auto grid w-full max-w-7xl grid-cols-1 gap-10 px-5 pb-6 pt-8 sm:px-8 lg:min-h-[calc(100vh-5.75rem)] lg:grid-cols-[1.02fr_0.98fr] lg:px-10">
+			<section className="mx-auto flex w-full max-w-7xl flex-col gap-7 px-5 pb-10 pt-6 sm:px-8 lg:hidden">
+				<div className="max-w-2xl">
+					<p className="mb-4 inline-flex items-center gap-2 rounded-full border border-(--line) bg-(--surface-soft) px-4 py-2 text-sm font-medium text-(--muted) shadow-[0_12px_30px_rgb(13_32_24_/_8%)]">
+						<SparkleIcon size={16} weight="duotone" />
+						Workplace mental wellness, starting soon
+					</p>
+
+					<h1 className="max-w-[11ch] text-[clamp(2.9rem,13vw,4.55rem)] leading-[0.92] font-semibold tracking-[-0.05em] text-balance">
+						A calmer way to support people at work.
+					</h1>
+
+					<p className="mt-5 max-w-[26rem] text-[1.05rem] leading-[1.72] text-(--muted)">
+						tranqli is being built as a mobile companion for employees who
+						need practical support around work pressure, wellbeing, and the
+						right next step.
+					</p>
+				</div>
+
+				<div className="max-w-xl">
+					<WaitlistJoinForm
+						email={email}
+						isSubmitting={isSubmitting}
+						onEmailChange={setEmail}
+						onSubmit={handleSubmit}
+						id="waitlist-mobile"
+						className="scroll-mt-28 rounded-[1.9rem] border border-(--line) bg-(--surface) p-2 shadow-[0_24px_80px_rgb(34_65_53_/_14%)]"
+						inputClassName="waitlist-field min-h-[3.4rem] w-full rounded-[1.2rem] border-0 bg-transparent px-4 text-[1.03rem] text-(--text) outline-none placeholder:text-(--muted) [-webkit-text-fill-color:var(--text)] [caret-color:var(--text)]"
+						buttonClassName="inline-flex min-h-[3.5rem] w-full items-center justify-center gap-2 rounded-[1.25rem] bg-(--brand) px-5 text-base font-bold text-(--brand-ink) shadow-[0_16px_36px_var(--brand-shadow)] transition duration-200 ease-out hover:-translate-y-px disabled:opacity-70"
+					/>
+
+					<WaitlistStatusMessage
+						className="mt-3"
+						message={message}
+						status={status}
+					/>
+				</div>
+
+				<div className="space-y-3" aria-label="tranqli support highlights">
+					<p className="text-xs font-semibold tracking-[0.18em] text-(--muted) uppercase">
+						What tranqli brings
+					</p>
+
+					<div className="grid gap-3">
+						{supportPoints.map((point) => {
+							const Icon = point.icon;
+
+							return (
+								<article
+									className="flex items-start gap-4 rounded-[1.55rem] border border-(--line) bg-(--surface) px-4 py-4 shadow-[0_18px_54px_rgb(13_32_24_/_10%)]"
+									key={point.label}
+								>
+									<div className="grid size-11 shrink-0 place-items-center rounded-[1rem] bg-[color-mix(in_srgb,var(--brand)_16%,transparent)] text-(--brand-strong)">
+										<Icon size={20} weight="duotone" />
+									</div>
+									<div className="min-w-0">
+										<h2 className="text-[1.08rem] leading-[1.2] font-semibold text-(--brand-strong)">
+											{point.label}
+										</h2>
+										<p className="mt-1 text-[0.94rem] leading-6 text-(--muted)">
+											{point.detail}
+										</p>
+									</div>
+								</article>
+							);
+						})}
+					</div>
+				</div>
+			</section>
+
+			<section className="relative mx-auto hidden w-full max-w-7xl grid-cols-1 gap-10 px-5 pb-6 pt-8 sm:px-8 lg:grid lg:min-h-[calc(100vh-5.75rem)] lg:grid-cols-[1.02fr_0.98fr] lg:px-10">
 				<div className="flex min-h-[58vh] flex-col justify-between gap-10 lg:min-h-[calc(100vh-3rem)]">
 					<div className="max-w-2xl">
 						<p className="mb-5 inline-flex items-center gap-2 rounded-full border border-(--line) bg-(--surface-soft) px-4 py-2 text-sm font-medium text-(--muted)">
@@ -156,43 +301,19 @@ export function WaitlistExperience() {
 							right next step.
 						</p>
 
-						<form
-							id="waitlist"
-							className="waitlist-form mt-9 scroll-mt-28"
+						<WaitlistJoinForm
+							email={email}
+							isSubmitting={isSubmitting}
+							onEmailChange={setEmail}
 							onSubmit={handleSubmit}
-						>
-							<label className="sr-only" htmlFor="email">
-								Email address
-							</label>
-							<input
-								id="email"
-								name="email"
-								type="email"
-								value={email}
-								onChange={(event) => setEmail(event.target.value)}
-								placeholder="you@company.com"
-								autoComplete="email"
-								required
-							/>
-							<button type="submit" disabled={isSubmitting}>
-								<span>{isSubmitting ? "Joining" : "Join waitlist"}</span>
-								<ArrowRightIcon size={18} weight="bold" />
-							</button>
-						</form>
+							className="waitlist-form mt-9 scroll-mt-28"
+						/>
 
-						{message ? (
-							<p
-								className={`mt-4 flex items-center gap-2 text-sm font-medium ${
-									status === "success" ? "text-(--success)" : "text-(--error)"
-								}`}
-								role="status"
-							>
-								{status === "success" ? (
-									<CheckCircleIcon size={18} weight="fill" />
-								) : null}
-								{message}
-							</p>
-						) : null}
+						<WaitlistStatusMessage
+							className="mt-4"
+							message={message}
+							status={status}
+						/>
 					</div>
 
 					<div className="grid gap-3 sm:grid-cols-3">

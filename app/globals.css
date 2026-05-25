@@ -108,6 +108,32 @@ button:disabled {
   cursor: not-allowed;
 }
 
+.waitlist-field {
+  color-scheme: light dark;
+}
+
+.waitlist-field:-webkit-autofill,
+.waitlist-field:-webkit-autofill:hover,
+.waitlist-field:-webkit-autofill:focus,
+.waitlist-field:-webkit-autofill:active {
+  border: 0;
+  -webkit-text-fill-color: var(--text) !important;
+  caret-color: var(--text) !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  -webkit-box-shadow: 0 0 0 1000px var(--surface) inset !important;
+  box-shadow: 0 0 0 1000px var(--surface) inset !important;
+  transition: background-color 999999s ease-in-out 0s;
+}
+
+.waitlist-field:autofill {
+  color: var(--text) !important;
+  caret-color: var(--text) !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: 0 0 0 1000px var(--surface) inset !important;
+}
+
 ::selection {
   background: var(--brand);
   color: var(--brand-ink);
@@ -462,42 +488,6 @@ button:disabled {
 .moment-row svg {
   color: var(--success);
   flex: 0 0 auto;
-}
-
-@media (max-width: 700px) {
-  .site-nav {
-    min-height: 4.75rem;
-  }
-
-  .scroll-cue {
-    top: calc(100dvh - 7rem);
-    width: 1.9rem;
-    height: 3.25rem;
-  }
-
-  .waitlist-form {
-    flex-direction: column;
-    border-radius: 1.5rem;
-    padding: 0.55rem;
-  }
-
-  .waitlist-form input {
-    min-height: 3.25rem;
-    padding: 0 0.8rem;
-  }
-
-  .waitlist-form button {
-    width: 100%;
-  }
-
-  .support-pill {
-    min-height: 3.7rem;
-  }
-
-  .phone-shell {
-    min-height: 42rem;
-    border-radius: 2.5rem;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
